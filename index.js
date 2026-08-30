@@ -1,4 +1,10 @@
-// index.js
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 function findDivisors(n) {
     const divisors = [];
 
@@ -10,23 +16,22 @@ function findDivisors(n) {
     }
 
     return divisors;
-    return [];
 }
 
 function main() {
-    const input = prompt("Введите число N:");
-    const n = parseInt(input);
+    rl.question('Введите число N: ', (answer) => {
+        const n = parseInt(answer);
 
-    if (isNaN(n) || n <= 0) {
-        console.log("Пожалуйста, введите положительное целое число.");
-        return;
-    }
+        if (isNaN(n) || n <= 0) {
+            console.log('Пожалуйста, введите положительное целое число.');
+            rl.close();
+            return;
+        }
 
-    const divisors = findDivisors(n);
-    console.log(`Делители числа ${n}: ${divisors.join(', ')}`);
+        const divisors = findDivisors(n);
+        console.log(`Делители числа ${n}: ${divisors.join(', ')}`);
+        rl.close();
+    });
 }
 
-// Запускаем программу, если скрипт выполняется напрямую
-if (typeof require !== 'undefined' && require.main === module) {
-    main();
-}
+main();
